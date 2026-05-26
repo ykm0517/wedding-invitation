@@ -610,6 +610,8 @@
         z-index: 40;
         display: none;
         background: var(--rose-bg);
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
       }
 
       .modal.open,
@@ -619,9 +621,9 @@
 
       .modal-card {
         width: min(100%, 430px);
-        min-height: 100svh;
+        min-height: 100%;
         margin: 0 auto;
-        overflow: auto;
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
         background: var(--rose-bg);
         color: var(--text-main);
       }
@@ -1047,7 +1049,7 @@
         <div class="save-card">
           <h2>Save the Date</h2>
           <p id="rsvpIntro"></p>
-          <a class="rsvp-trigger" id="openRsvp" href="#rsvpModal">
+          <a class="rsvp-trigger" id="openRsvp" href="#rsvpModal" onclick="openRsvpModal(); return false;">
             참석 의사 전달
           </a>
         </div>
@@ -1313,6 +1315,14 @@
       window.openRsvpModal = openRsvpModal;
       window.closeRsvpModal = closeRsvpModal;
 
+      function syncRsvpModalWithHash() {
+        if (window.location.hash === "#rsvpModal") {
+          openRsvpModal();
+        } else {
+          closeRsvpModal();
+        }
+      }
+
       function renderOptionButtons(containerSelector, inputSelector, options) {
         const container = $(containerSelector);
         const input = $(inputSelector);
@@ -1485,6 +1495,7 @@
         initAccordion();
         initRsvpModal();
         initShare();
+        syncRsvpModalWithHash();
       }
 
       if (document.readyState === "loading") {
@@ -1494,6 +1505,7 @@
       }
 
       window.addEventListener("load", initKakaoMap);
+      window.addEventListener("hashchange", syncRsvpModalWithHash);
     </script>
   </body>
 </html>
