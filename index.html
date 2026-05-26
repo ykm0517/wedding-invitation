@@ -733,6 +733,8 @@
         margin-top: 1.45rem;
         color: #c3c0be;
         font-size: 0.95rem;
+        cursor: pointer;
+        user-select: none;
       }
 
       .field {
@@ -1200,7 +1202,7 @@
           <div class="modal-cta">
             <a class="modal-cta-btn" href="./rsvp.html">참석 여부 전달</a>
           </div>
-          <div class="modal-footnote">오늘하루 보지않기</div>
+          <button class="modal-footnote" id="hideRsvpToday" type="button">오늘 하루 보지 않기</button>
         </div>
       </div>
     </div>
@@ -1208,6 +1210,7 @@
     <script>
       const $ = (selector) => document.querySelector(selector);
       const $$ = (selector) => [...document.querySelectorAll(selector)];
+      const RSVP_HIDE_KEY = "wedding-rsvp-popup-hide-until";
 
       function fillContent() {
         $("#heroImage").src = INVITATION.photos.hero;
@@ -1328,6 +1331,17 @@
       window.openRsvpModal = openRsvpModal;
       window.closeRsvpModal = closeRsvpModal;
 
+      function shouldHideRsvpPopupToday() {
+        const hiddenUntil = localStorage.getItem(RSVP_HIDE_KEY);
+        return Boolean(hiddenUntil && Number(hiddenUntil) > Date.now());
+      }
+
+      function hideRsvpPopupForToday() {
+        const tomorrow = new Date();
+        tomorrow.setHours(24, 0, 0, 0);
+        localStorage.setItem(RSVP_HIDE_KEY, String(tomorrow.getTime()));
+      }
+
       function syncRsvpModalWithHash() {
         if (window.location.hash === "#rsvpModal") {
           openRsvpModal();
@@ -1340,7 +1354,8 @@
         const modal = $("#rsvpModal");
         const openButton = $("#openRsvp");
         const cancelButton = $("#cancelRsvp");
-        if (!modal || !openButton || !cancelButton) return;
+        const hideTodayButton = $("#hideRsvpToday");
+        if (!modal || !openButton || !cancelButton || !hideTodayButton) return;
 
         openButton.addEventListener("click", (event) => {
           event.preventDefault();
@@ -1349,6 +1364,11 @@
 
         cancelButton.addEventListener("click", (event) => {
           event.preventDefault();
+          closeRsvpModal();
+        });
+
+        hideTodayButton.addEventListener("click", () => {
+          hideRsvpPopupForToday();
           closeRsvpModal();
         });
 
@@ -1428,7 +1448,7 @@
         initShare();
         if (window.location.hash === "#rsvpModal") {
           syncRsvpModalWithHash();
-        } else {
+        } else if (!shouldHideRsvpPopupToday()) {
           openRsvpModal();
         }
       }

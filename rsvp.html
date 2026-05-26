@@ -246,6 +246,7 @@
         sideOptions: ["신랑측", "신부측"],
         attendOptions: ["참석할게요", "참석이 어려워요"],
         mealOptions: ["예", "아니요", "미정"],
+        googleScriptUrl: "https://docs.google.com/spreadsheets/d/1-BZaL5GXhf_t8_9Tj7AbybdRtp891MzeJK9C006RdhE/edit?gid=612719231#gid=612719231",
       };
     </script>
 
@@ -321,7 +322,7 @@
         </form>
 
         <div class="success" id="rsvpSuccess">
-          참석 의사가 저장되었습니다. 현재는 임시 저장 방식이며, 실제 제출 연동도 이어서 붙일 수 있습니다.
+          참석 의사가 저장되었습니다.
         </div>
       </main>
     </div>
@@ -381,19 +382,59 @@
           }
 
           const formData = Object.fromEntries(new FormData($("#rsvpForm")).entries());
-          const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
-          saved.push({
+          const payload = {
             ...formData,
             createdAt: new Date().toISOString(),
-          });
-          localStorage.setItem("wedding-rsvp-list", JSON.stringify(saved));
-          $("#rsvpSuccess").classList.add("open");
-          $("#rsvpForm").reset();
-          $("#rsvpSide").value = "";
-          $("#rsvpAttend").value = "";
-          $("#rsvpMeal").value = "";
-          setGuestCount(0);
-          document.querySelectorAll(".option-btn").forEach((button) => button.classList.remove("active"));
+            source: window.location.href,
+          };
+
+          const submitToStorageOnly = () => {
+            const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
+            saved.push(payload);
+            localStorage.setItem("wedding-rsvp-list", JSON.stringify(saved));
+          };
+
+          const finishSuccess = () => {
+            $("#rsvpSuccess").classList.add("open");
+            $("#rsvpForm").reset();
+            $("#rsvpSide").value = "";
+            $("#rsvpAttend").value = "";
+            $("#rsvpMeal").value = "";
+            setGuestCount(0);
+            document.querySelectorAll(".option-btn").forEach((button) => button.classList.remove("active"));
+          };
+
+          const endpoint = RSVP_DATA.googleScriptUrl.trim();
+          if (!endpoint) {
+            submitToStorageOnly();
+            $("#rsvpSuccess").textContent =
+              "구글시트 URL이 아직 연결되지 않아 현재 기기 임시 저장으로 처리되었습니다.";
+            finishSuccess();
+            return;
+          }
+
+          fetch(endpoint, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+              "Content-Type": "text/plain;charset=utf-8",
+            },
+            body: JSON.stringify(payload),
+          })
+            .then((response) => response.json())
+            .then((result) => {
+              if (!result || result.status !== "success") {
+                throw new Error("sheet save failed");
+              }
+              $("#rsvpSuccess").textContent = "참석 의사가 구글시트에 저장되었습니다.";
+              finishSuccess();
+            })
+            .catch(() => {
+              submitToStorageOnly();
+              $("#rsvpSuccess").textContent =
+                "시트 저장에 실패해 현재 기기 임시 저장으로 처리되었습니다.";
+              finishSuccess();
+            });
         });
       }
 
