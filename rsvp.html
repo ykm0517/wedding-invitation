@@ -267,6 +267,8 @@
         <p class="intro" id="rsvpIntro"></p>
 
         <form id="rsvpForm">
+          <input id="rsvpCreatedAt" name="createdAt" type="hidden" value="" />
+          <input id="rsvpSource" name="source" type="hidden" value="" />
           <div class="field">
             <label>어느 측 하객이신가요?<span class="required">*</span></label>
             <div class="option-grid two" id="sideOptions"></div>
@@ -324,6 +326,7 @@
         <div class="success" id="rsvpSuccess">
           참석 의사가 저장되었습니다.
         </div>
+        <iframe name="rsvpSubmitFrame" id="rsvpSubmitFrame" style="display: none"></iframe>
       </main>
     </div>
 
@@ -381,12 +384,11 @@
             return;
           }
 
+          $("#rsvpCreatedAt").value = new Date().toISOString();
+          $("#rsvpSource").value = window.location.href;
+
           const formData = Object.fromEntries(new FormData($("#rsvpForm")).entries());
-          const payload = {
-            ...formData,
-            createdAt: new Date().toISOString(),
-            source: window.location.href,
-          };
+          const payload = { ...formData };
 
           const submitToStorageOnly = () => {
             const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
@@ -413,28 +415,32 @@
             return;
           }
 
-          fetch(endpoint, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-Type": "text/plain;charset=utf-8",
-            },
-            body: JSON.stringify(payload),
-          })
-            .then((response) => response.json())
-            .then((result) => {
-              if (!result || result.status !== "success") {
-                throw new Error("sheet save failed");
-              }
-              $("#rsvpSuccess").textContent = "참석 의사가 구글시트에 저장되었습니다.";
-              finishSuccess();
-            })
-            .catch(() => {
-              submitToStorageOnly();
-              $("#rsvpSuccess").textContent =
-                "시트 저장에 실패해 현재 기기 임시 저장으로 처리되었습니다.";
-              finishSuccess();
-            });
+          try {
+            const form = $("#rsvpForm");
+            const previousAction = form.getAttribute("action") || "";
+            const previousMethod = form.getAttribute("method") || "";
+            const previousTarget = form.getAttribute("target") || "";
+
+            form.setAttribute("action", endpoint);
+            form.setAttribute("method", "POST");
+            form.setAttribute("target", "rsvpSubmitFrame");
+            form.submit();
+
+            $("#rsvpSuccess").textContent = "참석 의사가 구글시트에 저장되었습니다.";
+            finishSuccess();
+
+            if (previousAction) form.setAttribute("action", previousAction);
+            else form.removeAttribute("action");
+            if (previousMethod) form.setAttribute("method", previousMethod);
+            else form.removeAttribute("method");
+            if (previousTarget) form.setAttribute("target", previousTarget);
+            else form.removeAttribute("target");
+          } catch (error) {
+            submitToStorageOnly();
+            $("#rsvpSuccess").textContent =
+              "시트 저장에 실패해 현재 기기 임시 저장으로 처리되었습니다.";
+            finishSuccess();
+          }
         });
       }
 
