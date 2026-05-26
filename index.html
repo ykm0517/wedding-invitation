@@ -562,6 +562,7 @@
         color: var(--text-main);
         cursor: pointer;
         text-align: center;
+        padding: 0;
       }
 
       .share-circle {
@@ -574,6 +575,17 @@
         place-items: center;
         color: #8f6059;
         font-size: 1.45rem;
+      }
+
+      .share-circle svg {
+        width: 1.52rem;
+        height: 1.52rem;
+        stroke: currentColor;
+      }
+
+      .share-circle.link-style {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
       }
 
       .share-item span {
@@ -597,30 +609,21 @@
         inset: 0;
         z-index: 40;
         display: none;
-        align-items: center;
-        justify-content: center;
-        padding: 1.2rem;
-        background: rgba(64, 36, 34, 0.42);
-        backdrop-filter: blur(6px);
+        background: var(--rose-bg);
       }
 
-      .modal.open {
-        display: flex;
-      }
-
+      .modal.open,
       .modal:target {
-        display: flex;
+        display: block;
       }
 
       .modal-card {
-        width: min(100%, 22rem);
-        max-height: 90svh;
+        width: min(100%, 430px);
+        min-height: 100svh;
+        margin: 0 auto;
         overflow: auto;
-        padding: 1.5rem 1.2rem 1.2rem;
-        border-radius: 1.35rem;
-        background: #f7efee;
+        background: var(--rose-bg);
         color: var(--text-main);
-        box-shadow: 0 18px 40px rgba(55, 31, 29, 0.18);
       }
 
       .modal-head {
@@ -628,54 +631,73 @@
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        height: 4.15rem;
+        padding: 0 1.4rem;
+        border-bottom: 1px solid var(--line);
       }
 
       .modal-head h3 {
         margin: 0;
         font-family: "Cormorant Garamond", serif;
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
 
       .close-btn {
         border: 0;
         background: transparent;
         color: var(--text-main);
-        font-size: 1.6rem;
+        font-size: 2rem;
         line-height: 1;
         cursor: pointer;
         text-decoration: none;
       }
 
+      .back-btn {
+        color: var(--text-main);
+        text-decoration: none;
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .modal-body {
+        padding: 2.1rem 1.5rem 2.5rem;
+      }
+
       .modal-sub {
-        margin: 0.6rem 0 1.2rem;
+        margin: 0 0 2rem;
         color: var(--text-soft);
-        font-size: 0.98rem;
-        line-height: 1.7;
+        font-size: 1rem;
+        line-height: 1.8;
       }
 
       .field {
-        margin-top: 0.85rem;
+        margin-top: 2rem;
       }
 
       .field label {
         display: block;
-        margin-bottom: 0.45rem;
-        font-size: 0.92rem;
+        margin-bottom: 0.8rem;
+        font-size: 1.12rem;
       }
 
       .field input,
       .field textarea,
       .field select {
         width: 100%;
-        padding: 0.82rem 0.9rem;
-        border: 1px solid rgba(111, 37, 33, 0.14);
-        border-radius: 0.95rem;
-        background: #fff;
+        padding: 0.92rem 0;
+        border: 0;
+        border-bottom: 1px solid rgba(111, 37, 33, 0.18);
+        border-radius: 0;
+        background: transparent;
         color: var(--text-main);
+        font-size: 1.04rem;
       }
 
       .field textarea {
-        min-height: 6.2rem;
+        min-height: 9rem;
+        padding: 1rem;
+        border: 1px solid rgba(111, 37, 33, 0.16);
+        background: rgba(255, 255, 255, 0.08);
         resize: vertical;
       }
 
@@ -730,6 +752,61 @@
         display: block;
       }
 
+      .option-grid {
+        display: grid;
+        gap: 0.8rem;
+      }
+
+      .option-grid.two {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .option-grid.three {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .option-btn {
+        min-height: 4.2rem;
+        border: 1px solid rgba(111, 37, 33, 0.16);
+        background: transparent;
+        color: #bc9891;
+        font-size: 1.08rem;
+      }
+
+      .option-btn.active {
+        background: rgba(255, 255, 255, 0.12);
+        color: var(--text-main);
+        border-color: rgba(111, 37, 33, 0.28);
+      }
+
+      .guest-stepper {
+        display: flex;
+        align-items: center;
+        gap: 1.4rem;
+        margin-top: 0.8rem;
+      }
+
+      .stepper-btn {
+        width: 3.9rem;
+        height: 3.9rem;
+        border: 1px solid rgba(111, 37, 33, 0.18);
+        border-radius: 50%;
+        background: transparent;
+        color: var(--text-main);
+        font-size: 2rem;
+      }
+
+      .stepper-value {
+        min-width: 2rem;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+      }
+
+      .required {
+        color: #d87f73;
+      }
+
       @media (max-width: 360px) {
         .hero-name,
         .section-title,
@@ -779,6 +856,9 @@
             "더욱 특별하게 모시고자 하오니,",
             "참석 여부 전달을 부탁드립니다.",
           ],
+          sideOptions: ["신랑측", "신부측"],
+          attendOptions: ["참석할게요", "참석이 어려워요"],
+          mealOptions: ["예", "아니요", "미정"],
         },
         account: {
           groom: {
@@ -1018,7 +1098,13 @@
             <span>KAKAO</span>
           </button>
           <button class="share-item" type="button" id="shareLink">
-            <div class="share-circle">⟲</div>
+            <div class="share-circle link-style" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13.5l4-4"></path>
+                <path d="M8.5 16a3.5 3.5 0 0 1 0-5l2-2a3.5 3.5 0 1 1 5 5l-1 1"></path>
+                <path d="M15.5 8a3.5 3.5 0 0 1 0 5l-2 2a3.5 3.5 0 1 1-5-5l1-1"></path>
+              </svg>
+            </div>
             <span>LINK</span>
           </button>
           <button class="share-item" type="button" id="shareMore">
@@ -1034,46 +1120,77 @@
     <div class="modal" id="rsvpModal" aria-hidden="true">
       <div class="modal-card" role="dialog" aria-modal="true">
         <div class="modal-head">
+          <a class="back-btn" href="#">‹</a>
           <h3>RSVP</h3>
-          <a class="close-btn" id="closeRsvp" href="#">×</a>
+          <button class="menu-btn" type="button" aria-label="메뉴">
+            <div>
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </button>
         </div>
-        <p class="modal-sub">
-          참석 여부를 남겨주시면 예식 준비에 큰 도움이 됩니다.
-        </p>
+        <div class="modal-body">
+          <p class="modal-sub">참석 여부를 남겨주시면 예식 준비에 큰 도움이 됩니다.</p>
 
-        <form id="rsvpForm">
-          <div class="field">
-            <label for="rsvpName">성함</label>
-            <input id="rsvpName" name="name" type="text" required />
-          </div>
-          <div class="field">
-            <label for="rsvpAttend">참석 여부</label>
-            <select id="rsvpAttend" name="attendance" required>
-              <option value="">선택해 주세요</option>
-              <option value="attending">참석</option>
-              <option value="not-attending">불참</option>
-              <option value="undecided">미정</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="rsvpGuests">동반 인원</label>
-            <input id="rsvpGuests" name="guests" type="number" min="0" value="1" />
-          </div>
-          <div class="field">
-            <label for="rsvpMessage">전달 말씀</label>
-            <textarea id="rsvpMessage" name="message"></textarea>
-          </div>
+          <form id="rsvpForm">
+            <div class="field">
+              <label>어느 측 하객이신가요?<span class="required">*</span></label>
+              <div class="option-grid two" id="sideOptions"></div>
+              <input type="hidden" id="rsvpSide" name="side" required />
+            </div>
 
-          <div class="modal-actions">
-            <a class="ghost-btn" id="cancelRsvp" href="#">닫기</a>
-            <button class="primary-btn" type="submit">전달하기</button>
-          </div>
-        </form>
+            <div class="field">
+              <label>참석하실 수 있나요?<span class="required">*</span></label>
+              <div class="option-grid two" id="attendOptions"></div>
+              <input type="hidden" id="rsvpAttend" name="attendance" required />
+            </div>
 
-        <div class="success" id="rsvpSuccess">
-          참석 의사가 저장되었습니다. 지금은 브라우저 내 임시 저장 방식으로
-          연결되어 있으며, 실제 폼 연동은 구글폼/Formspree/시트 연동으로 바로
-          바꿀 수 있습니다.
+            <div class="field">
+              <label>식사 여부</label>
+              <div class="option-grid three" id="mealOptions"></div>
+              <input type="hidden" id="rsvpMeal" name="meal" />
+            </div>
+
+            <div class="field">
+              <label for="rsvpName">성함<span class="required">*</span></label>
+              <input id="rsvpName" name="name" type="text" placeholder="참석자 본인 성함" required />
+            </div>
+
+            <div class="field">
+              <label for="rsvpPhone">연락처</label>
+              <input id="rsvpPhone" name="phone" type="text" placeholder="010-0000-0000" />
+            </div>
+
+            <div class="field">
+              <label>동행인 수 (본인 제외)</label>
+              <div class="guest-stepper">
+                <button class="stepper-btn" id="guestMinus" type="button">−</button>
+                <div class="stepper-value" id="guestCount">0</div>
+                <button class="stepper-btn" id="guestPlus" type="button">+</button>
+              </div>
+              <input type="hidden" id="rsvpGuests" name="guests" value="0" />
+            </div>
+
+            <div class="field">
+              <label for="rsvpGuestNames">동행인 성함</label>
+              <input id="rsvpGuestNames" name="guest_names" type="text" placeholder="동행하시는 분의 성함" />
+            </div>
+
+            <div class="field">
+              <label for="rsvpMessage">전달사항</label>
+              <textarea id="rsvpMessage" name="message" maxlength="200" placeholder="축하 메시지나 전달사항을 남겨주세요"></textarea>
+            </div>
+
+            <div class="modal-actions">
+              <a class="ghost-btn" id="cancelRsvp" href="#">닫기</a>
+              <button class="primary-btn" type="submit">전달하기</button>
+            </div>
+          </form>
+
+          <div class="success" id="rsvpSuccess">
+            참석 의사가 저장되었습니다. 현재는 임시 저장 방식이며, 실제 제출 연동도 이어서 붙일 수 있습니다.
+          </div>
         </div>
       </div>
     </div>
@@ -1180,6 +1297,7 @@
         if (!modal) return;
         modal.classList.add("open");
         modal.setAttribute("aria-hidden", "false");
+        window.location.hash = "rsvpModal";
       }
 
       function closeRsvpModal() {
@@ -1187,30 +1305,102 @@
         if (!modal) return;
         modal.classList.remove("open");
         modal.setAttribute("aria-hidden", "true");
+        if (window.location.hash === "#rsvpModal") {
+          history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
       }
 
       window.openRsvpModal = openRsvpModal;
       window.closeRsvpModal = closeRsvpModal;
 
+      function renderOptionButtons(containerSelector, inputSelector, options) {
+        const container = $(containerSelector);
+        const input = $(inputSelector);
+        if (!container || !input) return;
+
+        container.innerHTML = "";
+
+        options.forEach((option, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "option-btn";
+          button.textContent = option;
+
+          button.addEventListener("click", () => {
+            input.value = option;
+            [...container.querySelectorAll(".option-btn")].forEach((item) => {
+              item.classList.toggle("active", item === button);
+            });
+          });
+
+          if (index === 0 && input.value === option) {
+            button.classList.add("active");
+          }
+
+          container.appendChild(button);
+        });
+      }
+
       function initRsvpModal() {
         const modal = $("#rsvpModal");
         const openButton = $("#openRsvp");
-        const closeButton = $("#closeRsvp");
         const cancelButton = $("#cancelRsvp");
+        const backButton = modal?.querySelector(".back-btn");
         const form = $("#rsvpForm");
         const success = $("#rsvpSuccess");
+        const sideInput = $("#rsvpSide");
+        const attendInput = $("#rsvpAttend");
+        const mealInput = $("#rsvpMeal");
+        const guestsInput = $("#rsvpGuests");
+        const guestCount = $("#guestCount");
+        const guestMinus = $("#guestMinus");
+        const guestPlus = $("#guestPlus");
 
-        if (!modal || !openButton || !closeButton || !cancelButton || !form || !success) return;
+        if (!modal || !openButton || !cancelButton || !backButton || !form || !success) return;
 
-        openButton.addEventListener("click", openRsvpModal);
-        closeButton.addEventListener("click", closeRsvpModal);
-        cancelButton.addEventListener("click", closeRsvpModal);
-        modal.addEventListener("click", (event) => {
-          if (event.target === modal) closeRsvpModal();
+        sideInput.value = "";
+        attendInput.value = "";
+        mealInput.value = "";
+        guestsInput.value = "0";
+        guestCount.textContent = "0";
+
+        renderOptionButtons("#sideOptions", "#rsvpSide", INVITATION.rsvp.sideOptions || []);
+        renderOptionButtons("#attendOptions", "#rsvpAttend", INVITATION.rsvp.attendOptions || []);
+        renderOptionButtons("#mealOptions", "#rsvpMeal", INVITATION.rsvp.mealOptions || []);
+
+        openButton.addEventListener("click", (event) => {
+          event.preventDefault();
+          openRsvpModal();
+        });
+
+        [cancelButton, backButton].forEach((button) => {
+          button.addEventListener("click", (event) => {
+            event.preventDefault();
+            closeRsvpModal();
+          });
+        });
+
+        const setGuestCount = (nextValue) => {
+          const value = Math.max(0, nextValue);
+          guestsInput.value = String(value);
+          guestCount.textContent = String(value);
+        };
+
+        guestMinus?.addEventListener("click", () => {
+          setGuestCount(Number(guestsInput.value || "0") - 1);
+        });
+
+        guestPlus?.addEventListener("click", () => {
+          setGuestCount(Number(guestsInput.value || "0") + 1);
         });
 
         form.addEventListener("submit", (event) => {
           event.preventDefault();
+          if (!sideInput.value || !attendInput.value || !$("#rsvpName").value.trim()) {
+            alert("필수 항목을 입력해주세요.");
+            return;
+          }
+
           const formData = Object.fromEntries(new FormData(form).entries());
           const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
           saved.push({
@@ -1220,6 +1410,11 @@
           localStorage.setItem("wedding-rsvp-list", JSON.stringify(saved));
           success.classList.add("open");
           form.reset();
+          sideInput.value = "";
+          attendInput.value = "";
+          mealInput.value = "";
+          setGuestCount(0);
+          $$(".option-btn").forEach((button) => button.classList.remove("active"));
         });
       }
 
