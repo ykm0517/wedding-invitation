@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>양경민 &amp; 우지수</title>
+    <meta
+      name="description"
+      content="2026.09.05 토요일 오전 11시, 프란치스코 교육회관 성당"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="양경민 &amp; 우지수" />
+    <meta
+      property="og:description"
+      content="2026.09.05 토요일 오전 11시, 프란치스코 교육회관 성당"
+    />
+    <meta
+      property="og:image"
+      content="https://firebasestorage.googleapis.com/v0/b/thenewchapter-ad2b3.firebasestorage.app/o/uploads%2Fimages%2Fusers%2FUqVMHT6ByNaW10d3sy2AlDN3Fai2%2F1779455130439_2b8a695c-2235-4534-ac0f-e0c9bbb9ab6d_full.png?alt=media&token=bf29f134-8f9b-46fe-aef0-4b369ad3675d"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=a5974d3d331b15f888024d6322f040f1&libraries=services"
+      defer
+    ></script>
+    <style>
+      :root {
+        --rose-bg: #ead5d2;
+        --rose-soft: #f4e9e7;
+        --text-main: #6f2521;
+        --text-soft: #ab7e77;
+        --text-faint: #c9a7a0;
+        --line: rgba(111, 37, 33, 0.12);
+        --white-glow: rgba(255, 255, 255, 0.45);
+        --card: #f3eee8;
+        --button-fill: #d4cdc4;
+        --button-line: rgba(88, 72, 62, 0.22);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--rose-bg);
+        color: var(--text-main);
+        font-family: "Noto Serif KR", serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      .page {
+        width: min(100%, 430px);
+        margin: 0 auto;
+        background: var(--rose-bg);
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        height: 4.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1.35rem;
+        background: rgba(234, 213, 210, 0.94);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid rgba(111, 37, 33, 0.07);
+      }
+
+      .brand {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.36rem;
+        letter-spacing: 0.01em;
+      }
+
+      .menu-btn {
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 0;
+        background: transparent;
+        display: grid;
+        place-items: center;
+        padding: 0;
+        cursor: pointer;
+      }
+
+      .menu-btn span {
+        display: block;
+        width: 1.3rem;
+        height: 2px;
+        background: var(--text-main);
+        border-radius: 999px;
+        margin: 0.16rem 0;
+      }
+
+      .menu-panel {
+        position: fixed;
+        top: 4.15rem;
+        left: 50%;
+        z-index: 25;
+        width: min(100%, 430px);
+        transform: translateX(-50%);
+        background: rgba(244, 233, 231, 0.96);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--line);
+        display: none;
+      }
+
+      .menu-panel.open {
+        display: block;
+      }
+
+      .menu-panel button {
+        width: 100%;
+        padding: 1rem 1.4rem;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: transparent;
+        text-align: left;
+        color: var(--text-main);
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .hero {
+        padding: 0.1rem 1.25rem 2.65rem;
+        text-align: center;
+      }
+
+      .hero-photo {
+        width: min(100%, 17.2rem);
+        aspect-ratio: 0.72;
+        margin: 0 auto;
+        overflow: hidden;
+        border-radius: 12rem;
+        background: #e6ddd3;
+      }
+
+      .hero-photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .hero-kicker {
+        margin: 1.45rem 0 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 0.92rem;
+        letter-spacing: 0.22em;
+        color: var(--text-soft);
+      }
+
+      .hero-name {
+        margin: 0.36rem 0 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3.05rem;
+        line-height: 0.97;
+        font-weight: 600;
+      }
+
+      .hero-amp {
+        margin: 0.08rem 0 0.12rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.55rem;
+        line-height: 1;
+        color: var(--text-soft);
+      }
+
+      .hero-meta {
+        margin: 1.35rem 0 0;
+        font-size: 1.18rem;
+        line-height: 1.95;
+        color: var(--text-soft);
+      }
+
+      .hero-meta strong {
+        font-weight: 500;
+        color: var(--text-main);
+      }
+
+      .section {
+        padding: 4.15rem 1.5rem;
+      }
+
+      .section-soft {
+        background: var(--rose-soft);
+      }
+
+      .section-rose {
+        background: var(--rose-bg);
+      }
+
+      .section-title {
+        margin: 0;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3.05rem;
+        line-height: 0.98;
+        font-weight: 600;
+      }
+
+      .label {
+        margin: 0 0 1.15rem;
+        text-align: center;
+        font-size: 0.84rem;
+        letter-spacing: 0.28em;
+        color: var(--text-main);
+      }
+
+      .parents {
+        margin-top: 7rem;
+        display: grid;
+        gap: 0.9rem;
+      }
+
+      .parents p {
+        margin: 0;
+        text-align: center;
+        font-size: 1.12rem;
+        line-height: 1.9;
+      }
+
+      .parents small {
+        font-size: 0.88rem;
+        color: var(--text-soft);
+      }
+
+      .invitation-copy {
+        width: 14rem;
+        max-width: 100%;
+        margin: 4.55rem auto 0;
+        text-align: center;
+      }
+
+      .invitation-copy p {
+        margin: 0;
+        font-size: 1.1rem;
+        line-height: 2.16;
+      }
+
+      .date-block {
+        margin-top: 7.45rem;
+        padding-top: 2.1rem;
+        border-top: 1px solid var(--line);
+        text-align: center;
+      }
+
+      .date-main {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3.28rem;
+        line-height: 1;
+        font-weight: 600;
+      }
+
+      .date-sub {
+        margin: 0.92rem 0 0;
+        font-size: 1.16rem;
+        color: var(--text-soft);
+      }
+
+      .calendar {
+        margin-top: 2.35rem;
+        padding-top: 1.9rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .weekdays,
+      .days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        text-align: center;
+      }
+
+      .weekdays {
+        margin-bottom: 0.9rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.28rem;
+      }
+
+      .days {
+        gap: 0.95rem 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.34rem;
+      }
+
+      .sun {
+        color: #ff9085;
+      }
+
+      .highlight {
+        width: 2.6rem;
+        height: 2.6rem;
+        margin: 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #b77b75;
+        color: #fff;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1px;
+        margin-top: 1.35rem;
+        background: rgba(0, 0, 0, 0.04);
+      }
+
+      .gallery-item {
+        position: relative;
+        aspect-ratio: 1 / 1.4;
+        overflow: hidden;
+        background: #e4dacf;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .gallery-more::after {
+        content: "+3\A MORE";
+        white-space: pre;
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-content: center;
+        background: rgba(66, 44, 39, 0.28);
+        color: #fff;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1.26rem;
+        letter-spacing: 0.11em;
+        text-align: center;
+      }
+
+      .location-wrap {
+        text-align: center;
+      }
+
+      .location-name {
+        margin: 2rem 0 0;
+        font-size: 1.58rem;
+        line-height: 1.75;
+      }
+
+      .location-sub {
+        margin: 0.42rem 0 0;
+        font-size: 1.08rem;
+        line-height: 1.8;
+        color: var(--text-soft);
+      }
+
+      #kakao-map {
+        width: 100%;
+        height: 15.2rem;
+        margin-top: 2rem;
+        border: 1px solid rgba(111, 37, 33, 0.1);
+      }
+
+      .map-buttons {
+        display: flex;
+        gap: 0.62rem;
+        margin-top: 1.18rem;
+      }
+
+      .map-buttons a {
+        flex: 1;
+        min-height: 3.05rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(111, 37, 33, 0.18);
+        border-radius: 999px;
+        text-decoration: none;
+        color: var(--text-main);
+        font-size: 0.92rem;
+        background: transparent;
+      }
+
+      .info {
+        margin-top: 2.45rem;
+        text-align: center;
+      }
+
+      .info h3 {
+        margin: 0;
+        font-size: 1.24rem;
+      }
+
+      .info p {
+        margin: 0.95rem 0 0;
+        font-size: 1.06rem;
+        line-height: 1.9;
+        color: var(--text-soft);
+      }
+
+      .save-card {
+        width: min(100%, 18.2rem);
+        margin: 0 auto;
+        padding: 4rem 1.6rem 3rem;
+        position: relative;
+        border-radius: 2rem;
+        background:
+          radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.35), transparent 30%),
+          var(--card);
+        border: 2px solid rgba(138, 116, 97, 0.12);
+        box-shadow:
+          inset 0 0 0 3px var(--white-glow),
+          0 10px 30px rgba(91, 63, 54, 0.04);
+      }
+
+      .save-card::before,
+      .save-card::after {
+        content: "";
+        position: absolute;
+        inset: 0.5rem;
+        border: 1px solid rgba(138, 116, 97, 0.16);
+        border-radius: 1.6rem;
+        pointer-events: none;
+      }
+
+      .save-card h2 {
+        margin: 0;
+        text-align: center;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 3rem;
+        line-height: 1;
+        color: #221c19;
+      }
+
+      .save-card p {
+        margin: 1.35rem 0 0;
+        text-align: center;
+        font-size: 1.08rem;
+        line-height: 1.95;
+        color: #463d37;
+      }
+
+      .rsvp-trigger {
+        width: 100%;
+        max-width: 13.9rem;
+        height: 4rem;
+        margin: 1.95rem auto 0;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--button-line);
+        border-radius: 999px;
+        background: var(--button-fill);
+        color: #3e3530;
+        font-size: 1.05rem;
+        cursor: pointer;
+      }
+
+      .account-note {
+        margin: 2.1rem 0 0;
+        text-align: center;
+        font-size: 1.16rem;
+      }
+
+      .accordion {
+        margin-top: 2.2rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .acc-item {
+        width: 100%;
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        background: transparent;
+        padding: 1.34rem 0.8rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: var(--text-main);
+        cursor: pointer;
+      }
+
+      .acc-title {
+        font-size: 1.16rem;
+      }
+
+      .acc-panel {
+        display: none;
+        padding: 0 0.8rem 1.25rem;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .acc-panel.open {
+        display: block;
+      }
+
+      .acc-panel p {
+        margin: 0.18rem 0;
+        color: var(--text-soft);
+        font-size: 0.98rem;
+        line-height: 1.8;
+      }
+
+      .acc-panel .copy-btn {
+        margin-top: 0.8rem;
+        border: 1px solid rgba(111, 37, 33, 0.18);
+        background: transparent;
+        color: var(--text-main);
+        border-radius: 999px;
+        padding: 0.5rem 0.9rem;
+        cursor: pointer;
+      }
+
+      .share-divider {
+        width: 2rem;
+        height: 1px;
+        margin: 4.8rem auto 2rem;
+        background: rgba(111, 37, 33, 0.24);
+      }
+
+      .share-copy {
+        text-align: center;
+      }
+
+      .share-copy p {
+        margin: 1.1rem 0 0;
+        font-size: 1.16rem;
+      }
+
+      .share-icons {
+        display: flex;
+        justify-content: center;
+        gap: 1.45rem;
+        margin-top: 2.1rem;
+      }
+
+      .share-item {
+        border: 0;
+        background: transparent;
+        color: var(--text-main);
+        cursor: pointer;
+        text-align: center;
+      }
+
+      .share-circle {
+        width: 4rem;
+        height: 4rem;
+        margin: 0 auto;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        display: grid;
+        place-items: center;
+        color: #8f6059;
+        font-size: 1.45rem;
+      }
+
+      .share-item span {
+        display: block;
+        margin-top: 0.88rem;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 1rem;
+        letter-spacing: 0.14em;
+      }
+
+      .footer {
+        padding: 3.6rem 1rem 4rem;
+        text-align: center;
+        color: var(--text-faint);
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.2rem;
+        background: rgba(64, 36, 34, 0.42);
+        backdrop-filter: blur(6px);
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal:target {
+        display: flex;
+      }
+
+      .modal-card {
+        width: min(100%, 22rem);
+        max-height: 90svh;
+        overflow: auto;
+        padding: 1.5rem 1.2rem 1.2rem;
+        border-radius: 1.35rem;
+        background: #f7efee;
+        color: var(--text-main);
+        box-shadow: 0 18px 40px rgba(55, 31, 29, 0.18);
+      }
+
+      .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .modal-head h3 {
+        margin: 0;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 2rem;
+      }
+
+      .close-btn {
+        border: 0;
+        background: transparent;
+        color: var(--text-main);
+        font-size: 1.6rem;
+        line-height: 1;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .modal-sub {
+        margin: 0.6rem 0 1.2rem;
+        color: var(--text-soft);
+        font-size: 0.98rem;
+        line-height: 1.7;
+      }
+
+      .field {
+        margin-top: 0.85rem;
+      }
+
+      .field label {
+        display: block;
+        margin-bottom: 0.45rem;
+        font-size: 0.92rem;
+      }
+
+      .field input,
+      .field textarea,
+      .field select {
+        width: 100%;
+        padding: 0.82rem 0.9rem;
+        border: 1px solid rgba(111, 37, 33, 0.14);
+        border-radius: 0.95rem;
+        background: #fff;
+        color: var(--text-main);
+      }
+
+      .field textarea {
+        min-height: 6.2rem;
+        resize: vertical;
+      }
+
+      .modal-actions {
+        display: flex;
+        gap: 0.7rem;
+        margin-top: 1.2rem;
+      }
+
+      .modal-actions button {
+        flex: 1;
+        min-height: 3rem;
+        border-radius: 999px;
+        cursor: pointer;
+      }
+
+      .modal-actions a {
+        flex: 1;
+        min-height: 3rem;
+        border-radius: 999px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .ghost-btn {
+        border: 1px solid rgba(111, 37, 33, 0.18);
+        background: transparent;
+        color: var(--text-main);
+      }
+
+      .primary-btn {
+        border: 0;
+        background: var(--text-main);
+        color: #fff;
+      }
+
+      .success {
+        display: none;
+        margin-top: 1rem;
+        padding: 0.9rem 1rem;
+        border-radius: 1rem;
+        background: rgba(111, 37, 33, 0.08);
+        color: var(--text-main);
+        font-size: 0.94rem;
+        line-height: 1.7;
+      }
+
+      .success.open {
+        display: block;
+      }
+
+      @media (max-width: 360px) {
+        .hero-name,
+        .section-title,
+        .date-main,
+        .save-card h2 {
+          font-size: 2.7rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <script>
+      const INVITATION = {
+        couple: {
+          groomKo: "양경민",
+          brideKo: "우지수",
+          groomEn: "Yang kyung min",
+          brideEn: "Woo ji soo",
+          groomParents: "양승한 · 고재문",
+          brideParents: "우근하 · 정창주",
+          groomRelation: "의 장남",
+          brideRelation: "의 장녀",
+        },
+        wedding: {
+          dateText: "2026.09.05",
+          dayTimeText: "토요일 오전 11시",
+          venue: "프란치스코 교육회관 성당",
+          address: "서울 중구 정동길 9",
+          addressDetail: "서울 중구 정동길 9 1층",
+          phone: "02-6364-2200",
+        },
+        inviteText: [
+          "서로가 마주 보며 다져온 사랑을",
+          "이제 함께 한 곳을 바라보며",
+          "걸어가려 합니다.",
+          "저희 두 사람의 새로운 시작을",
+          "함께 축복해 주시면",
+          "더없는 기쁨으로 간직하겠습니다.",
+        ],
+        transport: {
+          subway: "지하철 이용 안내",
+          parking: "주차 공간 및 이용 안내",
+        },
+        rsvp: {
+          intro: [
+            "결혼식에 참석해주시는 모든 분들을",
+            "더욱 특별하게 모시고자 하오니,",
+            "참석 여부 전달을 부탁드립니다.",
+          ],
+        },
+        account: {
+          groom: {
+            bank: "국민은행",
+            number: "123456-78-901234",
+            holder: "양경민",
+          },
+          bride: {
+            bank: "신한은행",
+            number: "110-456-789012",
+            holder: "우지수",
+          },
+        },
+        photos: {
+          hero:
+            "https://firebasestorage.googleapis.com/v0/b/thenewchapter-ad2b3.firebasestorage.app/o/uploads%2Fimages%2Fusers%2FUqVMHT6ByNaW10d3sy2AlDN3Fai2%2F1779455130439_2b8a695c-2235-4534-ac0f-e0c9bbb9ab6d_full.png?alt=media&token=bf29f134-8f9b-46fe-aef0-4b369ad3675d",
+          gallery: [
+            "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1525258946800-98cfd641d0de?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=900&q=80",
+            "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=900&q=80",
+          ],
+        },
+        links: {
+          naver:
+            "https://map.naver.com/p/search/%EC%84%9C%EC%9A%B8%20%EC%A4%91%EA%B5%AC%20%EC%A0%95%EB%8F%99%EA%B8%B8%209",
+          kakao:
+            "https://map.kakao.com/link/search/%EC%84%9C%EC%9A%B8%20%EC%A4%91%EA%B5%AC%20%EC%A0%95%EB%8F%99%EA%B8%B8%209",
+          tmap:
+            "https://apis.openapi.sk.com/tmap/app/routes?appKey=&name=%ED%94%84%EB%9E%80%EC%B9%98%EC%8A%A4%EC%BD%94%20%EA%B5%90%EC%9C%A1%ED%9A%8C%EA%B4%80&lon=126.97239&lat=37.56509",
+        },
+      };
+    </script>
+
+    <div class="page">
+      <header class="topbar">
+        <div class="brand">The Wedding of</div>
+        <button class="menu-btn" id="menuToggle" aria-label="메뉴 열기">
+          <div>
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+        </button>
+      </header>
+
+      <nav class="menu-panel" id="menuPanel">
+        <button data-scroll="#hero">첫 화면</button>
+        <button data-scroll="#invitation">초대글</button>
+        <button data-scroll="#gallery">갤러리</button>
+        <button data-scroll="#location">오시는 길</button>
+        <button data-scroll="#account">계좌</button>
+      </nav>
+
+      <section class="hero" id="hero">
+        <div class="hero-photo">
+          <img id="heroImage" src="" alt="메인 사진" />
+        </div>
+        <p class="hero-kicker">with love and grace</p>
+        <h1 class="hero-name" id="groomEn"></h1>
+        <p class="hero-amp">&amp;</p>
+        <h1 class="hero-name" id="brideEn"></h1>
+        <p class="hero-meta">
+          <strong id="heroDate"></strong><br />
+          <span id="heroVenue"></span>
+        </p>
+      </section>
+
+      <section class="section section-soft" id="invitation">
+        <h2 class="section-title">Join us<br />for our wedding</h2>
+
+        <div class="parents">
+          <p>
+            <span id="groomParents"></span>
+            <small id="groomRelation"></small>
+            <strong id="groomKo"></strong>
+          </p>
+          <p>
+            <span id="brideParents"></span>
+            <small id="brideRelation"></small>
+            <strong id="brideKo"></strong>
+          </p>
+        </div>
+
+        <div class="invitation-copy">
+          <p class="label">INVITATION</p>
+          <p id="inviteText"></p>
+        </div>
+
+        <div class="date-block">
+          <p class="date-main" id="dateMain"></p>
+          <p class="date-sub" id="dateSub"></p>
+        </div>
+
+        <div class="calendar">
+          <div class="weekdays">
+            <div class="sun">S</div>
+            <div>M</div>
+            <div>T</div>
+            <div>W</div>
+            <div>T</div>
+            <div>F</div>
+            <div>S</div>
+          </div>
+          <div class="days">
+            <div></div>
+            <div></div>
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>
+            <div>4</div>
+            <div><div class="highlight">5</div></div>
+            <div class="sun">6</div>
+            <div>7</div>
+            <div>8</div>
+            <div>9</div>
+            <div>10</div>
+            <div>11</div>
+            <div>12</div>
+            <div class="sun">13</div>
+            <div>14</div>
+            <div>15</div>
+            <div>16</div>
+            <div>17</div>
+            <div>18</div>
+            <div>19</div>
+            <div class="sun">20</div>
+            <div>21</div>
+            <div>22</div>
+            <div>23</div>
+            <div class="sun">24</div>
+            <div class="sun">25</div>
+            <div class="sun">26</div>
+            <div class="sun">27</div>
+            <div>28</div>
+            <div>29</div>
+            <div>30</div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft" id="gallery">
+        <p class="label">GALLERY</p>
+        <div class="gallery-grid" id="galleryGrid"></div>
+      </section>
+
+      <section class="section section-soft" id="location">
+        <div class="location-wrap">
+          <p class="label">LOCATION</p>
+          <h2 class="location-name" id="locationName"></h2>
+          <p class="location-sub" id="locationAddress"></p>
+          <p class="location-sub" id="locationPhone"></p>
+
+          <div id="kakao-map" aria-label="카카오맵"></div>
+
+          <div class="map-buttons">
+            <a id="naverMapLink" href="" target="_blank" rel="noreferrer"
+              >네이버 지도 ↗</a
+            >
+            <a id="kakaoMapLink" href="" target="_blank" rel="noreferrer"
+              >카카오맵 ↗</a
+            >
+            <a id="tmapLink" href="" target="_blank" rel="noreferrer"
+              >티맵 ↗</a
+            >
+          </div>
+
+          <div class="info">
+            <h3>[지하철]</h3>
+            <p id="subwayText"></p>
+          </div>
+
+          <div class="info">
+            <h3>[주차 안내]</h3>
+            <p id="parkingText"></p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-soft">
+        <div class="save-card">
+          <h2>Save the Date</h2>
+          <p id="rsvpIntro"></p>
+          <a class="rsvp-trigger" id="openRsvp" href="#rsvpModal">
+            참석 의사 전달
+          </a>
+        </div>
+      </section>
+
+      <section class="section section-rose" id="account">
+        <p class="label">ACCOUNT</p>
+        <p class="account-note">마음 전하실 곳</p>
+
+        <div class="accordion">
+          <button class="acc-item" type="button" data-panel="groomPanel">
+            <span class="acc-title">신랑측 계좌번호</span>
+            <span>﹀</span>
+          </button>
+          <div class="acc-panel" id="groomPanel">
+            <p id="groomAccountBank"></p>
+            <p id="groomAccountNumber"></p>
+            <p id="groomAccountHolder"></p>
+            <button class="copy-btn" type="button" data-copy="groom">
+              계좌번호 복사
+            </button>
+          </div>
+
+          <button class="acc-item" type="button" data-panel="bridePanel">
+            <span class="acc-title">신부측 계좌번호</span>
+            <span>﹀</span>
+          </button>
+          <div class="acc-panel" id="bridePanel">
+            <p id="brideAccountBank"></p>
+            <p id="brideAccountNumber"></p>
+            <p id="brideAccountHolder"></p>
+            <button class="copy-btn" type="button" data-copy="bride">
+              계좌번호 복사
+            </button>
+          </div>
+        </div>
+
+        <div class="share-divider"></div>
+
+        <div class="share-copy">
+          <p class="label">SHARE</p>
+          <p>소중한 분들에게 전해주세요</p>
+        </div>
+
+        <div class="share-icons">
+          <button class="share-item" type="button" id="shareKakao">
+            <div class="share-circle">◉</div>
+            <span>KAKAO</span>
+          </button>
+          <button class="share-item" type="button" id="shareLink">
+            <div class="share-circle">⟲</div>
+            <span>LINK</span>
+          </button>
+          <button class="share-item" type="button" id="shareMore">
+            <div class="share-circle">⌂</div>
+            <span>MORE</span>
+          </button>
+        </div>
+
+        <div class="footer">CURATED BY THE NEW CHAPTER ALL RIGHTS RESERVED.</div>
+      </section>
+    </div>
+
+    <div class="modal" id="rsvpModal" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true">
+        <div class="modal-head">
+          <h3>RSVP</h3>
+          <a class="close-btn" id="closeRsvp" href="#">×</a>
+        </div>
+        <p class="modal-sub">
+          참석 여부를 남겨주시면 예식 준비에 큰 도움이 됩니다.
+        </p>
+
+        <form id="rsvpForm">
+          <div class="field">
+            <label for="rsvpName">성함</label>
+            <input id="rsvpName" name="name" type="text" required />
+          </div>
+          <div class="field">
+            <label for="rsvpAttend">참석 여부</label>
+            <select id="rsvpAttend" name="attendance" required>
+              <option value="">선택해 주세요</option>
+              <option value="attending">참석</option>
+              <option value="not-attending">불참</option>
+              <option value="undecided">미정</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="rsvpGuests">동반 인원</label>
+            <input id="rsvpGuests" name="guests" type="number" min="0" value="1" />
+          </div>
+          <div class="field">
+            <label for="rsvpMessage">전달 말씀</label>
+            <textarea id="rsvpMessage" name="message"></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <a class="ghost-btn" id="cancelRsvp" href="#">닫기</a>
+            <button class="primary-btn" type="submit">전달하기</button>
+          </div>
+        </form>
+
+        <div class="success" id="rsvpSuccess">
+          참석 의사가 저장되었습니다. 지금은 브라우저 내 임시 저장 방식으로
+          연결되어 있으며, 실제 폼 연동은 구글폼/Formspree/시트 연동으로 바로
+          바꿀 수 있습니다.
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const $ = (selector) => document.querySelector(selector);
+      const $$ = (selector) => [...document.querySelectorAll(selector)];
+
+      function fillContent() {
+        $("#heroImage").src = INVITATION.photos.hero;
+        $("#groomEn").textContent = INVITATION.couple.groomEn;
+        $("#brideEn").textContent = INVITATION.couple.brideEn;
+        $("#heroDate").textContent = `${INVITATION.wedding.dateText} ${INVITATION.wedding.dayTimeText}`;
+        $("#heroVenue").textContent = INVITATION.wedding.venue;
+
+        $("#groomParents").textContent = INVITATION.couple.groomParents + " ";
+        $("#brideParents").textContent = INVITATION.couple.brideParents + " ";
+        $("#groomRelation").textContent = INVITATION.couple.groomRelation + " ";
+        $("#brideRelation").textContent = INVITATION.couple.brideRelation + " ";
+        $("#groomKo").textContent = INVITATION.couple.groomKo;
+        $("#brideKo").textContent = INVITATION.couple.brideKo;
+
+        $("#inviteText").innerHTML = INVITATION.inviteText.join("<br />");
+        $("#dateMain").textContent = INVITATION.wedding.dateText;
+        $("#dateSub").textContent = INVITATION.wedding.dayTimeText;
+
+        $("#locationName").textContent = INVITATION.wedding.venue;
+        $("#locationAddress").textContent = INVITATION.wedding.addressDetail;
+        $("#locationPhone").textContent = INVITATION.wedding.phone;
+        $("#subwayText").textContent = INVITATION.transport.subway;
+        $("#parkingText").textContent = INVITATION.transport.parking;
+
+        $("#rsvpIntro").innerHTML = INVITATION.rsvp.intro.join("<br />");
+
+        $("#groomAccountBank").textContent = INVITATION.account.groom.bank;
+        $("#groomAccountNumber").textContent = INVITATION.account.groom.number;
+        $("#groomAccountHolder").textContent = INVITATION.account.groom.holder;
+        $("#brideAccountBank").textContent = INVITATION.account.bride.bank;
+        $("#brideAccountNumber").textContent = INVITATION.account.bride.number;
+        $("#brideAccountHolder").textContent = INVITATION.account.bride.holder;
+
+        $("#naverMapLink").href = INVITATION.links.naver;
+        $("#kakaoMapLink").href = INVITATION.links.kakao;
+        $("#tmapLink").href = INVITATION.links.tmap;
+
+        const galleryGrid = $("#galleryGrid");
+        INVITATION.photos.gallery.forEach((src, index) => {
+          const item = document.createElement("div");
+          item.className = "gallery-item" + (index === 5 ? " gallery-more" : "");
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = `갤러리 사진 ${index + 1}`;
+          item.appendChild(img);
+          galleryGrid.appendChild(item);
+        });
+      }
+
+      function initMenu() {
+        const menuToggle = $("#menuToggle");
+        const menuPanel = $("#menuPanel");
+
+        menuToggle.addEventListener("click", () => {
+          menuPanel.classList.toggle("open");
+        });
+
+        $$("[data-scroll]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const target = $(button.dataset.scroll);
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            menuPanel.classList.remove("open");
+          });
+        });
+      }
+
+      function initAccordion() {
+        $$(".acc-item").forEach((button) => {
+          button.addEventListener("click", () => {
+            const panel = document.getElementById(button.dataset.panel);
+            panel.classList.toggle("open");
+          });
+        });
+
+        $$("[data-copy]").forEach((button) => {
+          button.addEventListener("click", async () => {
+            const value =
+              button.dataset.copy === "groom"
+                ? INVITATION.account.groom.number
+                : INVITATION.account.bride.number;
+            try {
+              await navigator.clipboard.writeText(value);
+              button.textContent = "복사 완료";
+              setTimeout(() => {
+                button.textContent = "계좌번호 복사";
+              }, 1400);
+            } catch (error) {
+              alert("복사에 실패했습니다.");
+            }
+          });
+        });
+      }
+
+      function openRsvpModal() {
+        const modal = $("#rsvpModal");
+        if (!modal) return;
+        modal.classList.add("open");
+        modal.setAttribute("aria-hidden", "false");
+      }
+
+      function closeRsvpModal() {
+        const modal = $("#rsvpModal");
+        if (!modal) return;
+        modal.classList.remove("open");
+        modal.setAttribute("aria-hidden", "true");
+      }
+
+      window.openRsvpModal = openRsvpModal;
+      window.closeRsvpModal = closeRsvpModal;
+
+      function initRsvpModal() {
+        const modal = $("#rsvpModal");
+        const openButton = $("#openRsvp");
+        const closeButton = $("#closeRsvp");
+        const cancelButton = $("#cancelRsvp");
+        const form = $("#rsvpForm");
+        const success = $("#rsvpSuccess");
+
+        if (!modal || !openButton || !closeButton || !cancelButton || !form || !success) return;
+
+        openButton.addEventListener("click", openRsvpModal);
+        closeButton.addEventListener("click", closeRsvpModal);
+        cancelButton.addEventListener("click", closeRsvpModal);
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) closeRsvpModal();
+        });
+
+        form.addEventListener("submit", (event) => {
+          event.preventDefault();
+          const formData = Object.fromEntries(new FormData(form).entries());
+          const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
+          saved.push({
+            ...formData,
+            createdAt: new Date().toISOString(),
+          });
+          localStorage.setItem("wedding-rsvp-list", JSON.stringify(saved));
+          success.classList.add("open");
+          form.reset();
+        });
+      }
+
+      function initShare() {
+        $("#shareLink").addEventListener("click", async () => {
+          const url = window.location.href;
+          try {
+            await navigator.clipboard.writeText(url);
+            alert("링크가 복사되었습니다.");
+          } catch (error) {
+            alert(url);
+          }
+        });
+
+        $("#shareMore").addEventListener("click", async () => {
+          const shareData = {
+            title: document.title,
+            text: `${INVITATION.couple.groomKo} · ${INVITATION.couple.brideKo} 모바일 청첩장`,
+            url: window.location.href,
+          };
+
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+            } catch (error) {}
+          } else {
+            alert("이 브라우저에서는 기본 공유가 지원되지 않습니다.");
+          }
+        });
+
+        $("#shareKakao").addEventListener("click", () => {
+          window.open(INVITATION.links.kakao, "_blank", "noopener,noreferrer");
+        });
+      }
+
+      function initKakaoMap() {
+        if (!window.kakao || !window.kakao.maps) return;
+
+        const mapContainer = $("#kakao-map");
+        const map = new kakao.maps.Map(mapContainer, {
+          center: new kakao.maps.LatLng(37.56509, 126.97239),
+          level: 4,
+        });
+
+        const geocoder = new kakao.maps.services.Geocoder();
+        geocoder.addressSearch(INVITATION.wedding.address, (result, status) => {
+          if (status !== kakao.maps.services.Status.OK || !result[0]) return;
+
+          const coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+          map.setCenter(coords);
+
+          const marker = new kakao.maps.Marker({
+            map,
+            position: coords,
+          });
+
+          const infoWindow = new kakao.maps.InfoWindow({
+            content: `<div style="padding:8px 10px;font-size:13px;color:#6f2521;">${INVITATION.wedding.address}</div>`,
+          });
+
+          infoWindow.open(map, marker);
+        });
+      }
+
+      function initPage() {
+        fillContent();
+        initMenu();
+        initAccordion();
+        initRsvpModal();
+        initShare();
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initPage);
+      } else {
+        initPage();
+      }
+
+      window.addEventListener("load", initKakaoMap);
+    </script>
+  </body>
+</html>
