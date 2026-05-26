@@ -609,9 +609,8 @@
         inset: 0;
         z-index: 40;
         display: none;
-        background: var(--rose-bg);
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
+        background: rgba(37, 25, 23, 0.38);
+        padding: 1.5rem;
       }
 
       .modal.open,
@@ -620,28 +619,29 @@
       }
 
       .modal-card {
-        width: min(100%, 430px);
-        min-height: 100%;
-        margin: 0 auto;
-        padding-bottom: max(2rem, env(safe-area-inset-bottom));
-        background: var(--rose-bg);
+        width: min(100%, 380px);
+        margin: min(22vh, 8rem) auto 0;
+        padding: 1.6rem 1.45rem 1.7rem;
+        border-radius: 1.45rem;
+        background: #fffdfc;
         color: var(--text-main);
+        box-shadow: 0 24px 60px rgba(63, 39, 36, 0.2);
       }
 
       .modal-head {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        height: 4.15rem;
-        padding: 0 1.4rem;
-        border-bottom: 1px solid var(--line);
+        align-items: flex-start;
+        justify-content: flex-end;
+        height: auto;
+        padding: 0;
+        border-bottom: 0;
+        background: transparent;
       }
 
       .modal-head h3 {
         margin: 0;
         font-family: "Cormorant Garamond", serif;
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
 
       .close-btn {
@@ -662,14 +662,77 @@
       }
 
       .modal-body {
-        padding: 2.1rem 1.5rem 2.5rem;
+        padding: 0;
+        overflow: visible;
+        text-align: center;
       }
 
       .modal-sub {
-        margin: 0 0 2rem;
-        color: var(--text-soft);
-        font-size: 1rem;
-        line-height: 1.8;
+        margin: 1.4rem 0 1.7rem;
+        color: #4a423f;
+        font-size: 0.98rem;
+        line-height: 1.95;
+      }
+
+      .modal-title {
+        margin: -0.35rem 0 0;
+        font-size: 1.9rem;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+      }
+
+      .modal-divider {
+        height: 1px;
+        margin: 1.5rem 0 1.45rem;
+        border: 0;
+        border-top: 1px dashed rgba(111, 37, 33, 0.2);
+      }
+
+      .modal-summary {
+        margin: 0;
+        text-align: left;
+        color: #4f4744;
+        font-size: 0.97rem;
+        line-height: 1.95;
+      }
+
+      .modal-summary strong {
+        font-weight: 500;
+        color: var(--text-main);
+      }
+
+      .modal-summary .point-groom {
+        color: #7ca4c4;
+      }
+
+      .modal-summary .point-bride {
+        color: #d68c8c;
+      }
+
+      .modal-cta {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.7rem;
+      }
+
+      .modal-cta-btn {
+        width: min(100%, 14.5rem);
+        min-height: 3.6rem;
+        border-radius: 0.7rem;
+        background: #729c6c;
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        box-shadow: 0 12px 24px rgba(114, 156, 108, 0.2);
+      }
+
+      .modal-footnote {
+        margin-top: 1.45rem;
+        color: #c3c0be;
+        font-size: 0.95rem;
       }
 
       .field {
@@ -1049,7 +1112,7 @@
         <div class="save-card">
           <h2>Save the Date</h2>
           <p id="rsvpIntro"></p>
-          <a class="rsvp-trigger" id="openRsvp" href="#rsvpModal" onclick="openRsvpModal(); return false;">
+          <a class="rsvp-trigger" id="openRsvp" href="./rsvp.html">
             참석 의사 전달
           </a>
         </div>
@@ -1122,77 +1185,22 @@
     <div class="modal" id="rsvpModal" aria-hidden="true">
       <div class="modal-card" role="dialog" aria-modal="true">
         <div class="modal-head">
-          <a class="back-btn" href="#">‹</a>
-          <h3>RSVP</h3>
-          <button class="menu-btn" type="button" aria-label="메뉴">
-            <div>
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-          </button>
+          <a class="close-btn" id="cancelRsvp" href="#">×</a>
         </div>
         <div class="modal-body">
-          <p class="modal-sub">참석 여부를 남겨주시면 예식 준비에 큰 도움이 됩니다.</p>
-
-          <form id="rsvpForm">
-            <div class="field">
-              <label>어느 측 하객이신가요?<span class="required">*</span></label>
-              <div class="option-grid two" id="sideOptions"></div>
-              <input type="hidden" id="rsvpSide" name="side" required />
-            </div>
-
-            <div class="field">
-              <label>참석하실 수 있나요?<span class="required">*</span></label>
-              <div class="option-grid two" id="attendOptions"></div>
-              <input type="hidden" id="rsvpAttend" name="attendance" required />
-            </div>
-
-            <div class="field">
-              <label>식사 여부</label>
-              <div class="option-grid three" id="mealOptions"></div>
-              <input type="hidden" id="rsvpMeal" name="meal" />
-            </div>
-
-            <div class="field">
-              <label for="rsvpName">성함<span class="required">*</span></label>
-              <input id="rsvpName" name="name" type="text" placeholder="참석자 본인 성함" required />
-            </div>
-
-            <div class="field">
-              <label for="rsvpPhone">연락처</label>
-              <input id="rsvpPhone" name="phone" type="text" placeholder="010-0000-0000" />
-            </div>
-
-            <div class="field">
-              <label>동행인 수 (본인 제외)</label>
-              <div class="guest-stepper">
-                <button class="stepper-btn" id="guestMinus" type="button">−</button>
-                <div class="stepper-value" id="guestCount">0</div>
-                <button class="stepper-btn" id="guestPlus" type="button">+</button>
-              </div>
-              <input type="hidden" id="rsvpGuests" name="guests" value="0" />
-            </div>
-
-            <div class="field">
-              <label for="rsvpGuestNames">동행인 성함</label>
-              <input id="rsvpGuestNames" name="guest_names" type="text" placeholder="동행하시는 분의 성함" />
-            </div>
-
-            <div class="field">
-              <label for="rsvpMessage">전달사항</label>
-              <textarea id="rsvpMessage" name="message" maxlength="200" placeholder="축하 메시지나 전달사항을 남겨주세요"></textarea>
-            </div>
-
-            <div class="modal-actions">
-              <a class="ghost-btn" id="cancelRsvp" href="#">닫기</a>
-              <button class="primary-btn" type="submit">전달하기</button>
-            </div>
-          </form>
-
-          <div class="success" id="rsvpSuccess">
-            참석 의사가 저장되었습니다. 현재는 임시 저장 방식이며, 실제 제출 연동도 이어서 붙일 수 있습니다.
+          <h3 class="modal-title">참석 여부 전달</h3>
+          <p class="modal-sub" id="rsvpPopupIntro"></p>
+          <hr class="modal-divider" />
+          <p class="modal-summary">
+            ♡ <span class="point-groom">신랑</span> <strong id="popupGroomKo"></strong>,
+            <span class="point-bride">신부</span> <strong id="popupBrideKo"></strong><br />
+            ◻ <span id="popupDateText"></span><br />
+            ▸ <span id="popupVenueText"></span>
+          </p>
+          <div class="modal-cta">
+            <a class="modal-cta-btn" href="./rsvp.html">참석 여부 전달</a>
           </div>
+          <div class="modal-footnote">오늘하루 보지않기</div>
         </div>
       </div>
     </div>
@@ -1226,6 +1234,11 @@
         $("#parkingText").textContent = INVITATION.transport.parking;
 
         $("#rsvpIntro").innerHTML = INVITATION.rsvp.intro.join("<br />");
+        $("#rsvpPopupIntro").innerHTML = INVITATION.rsvp.intro.join("<br />");
+        $("#popupGroomKo").textContent = INVITATION.couple.groomKo;
+        $("#popupBrideKo").textContent = INVITATION.couple.brideKo;
+        $("#popupDateText").textContent = `${INVITATION.wedding.dateText} ${INVITATION.wedding.dayTimeText}`;
+        $("#popupVenueText").textContent = INVITATION.wedding.venue;
 
         $("#groomAccountBank").textContent = INVITATION.account.groom.bank;
         $("#groomAccountNumber").textContent = INVITATION.account.groom.number;
@@ -1318,113 +1331,31 @@
       function syncRsvpModalWithHash() {
         if (window.location.hash === "#rsvpModal") {
           openRsvpModal();
-        } else {
+        } else if ($("#rsvpModal")?.classList.contains("open")) {
           closeRsvpModal();
         }
-      }
-
-      function renderOptionButtons(containerSelector, inputSelector, options) {
-        const container = $(containerSelector);
-        const input = $(inputSelector);
-        if (!container || !input) return;
-
-        container.innerHTML = "";
-
-        options.forEach((option, index) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "option-btn";
-          button.textContent = option;
-
-          button.addEventListener("click", () => {
-            input.value = option;
-            [...container.querySelectorAll(".option-btn")].forEach((item) => {
-              item.classList.toggle("active", item === button);
-            });
-          });
-
-          if (index === 0 && input.value === option) {
-            button.classList.add("active");
-          }
-
-          container.appendChild(button);
-        });
       }
 
       function initRsvpModal() {
         const modal = $("#rsvpModal");
         const openButton = $("#openRsvp");
         const cancelButton = $("#cancelRsvp");
-        const backButton = modal?.querySelector(".back-btn");
-        const form = $("#rsvpForm");
-        const success = $("#rsvpSuccess");
-        const sideInput = $("#rsvpSide");
-        const attendInput = $("#rsvpAttend");
-        const mealInput = $("#rsvpMeal");
-        const guestsInput = $("#rsvpGuests");
-        const guestCount = $("#guestCount");
-        const guestMinus = $("#guestMinus");
-        const guestPlus = $("#guestPlus");
-
-        if (!modal || !openButton || !cancelButton || !backButton || !form || !success) return;
-
-        sideInput.value = "";
-        attendInput.value = "";
-        mealInput.value = "";
-        guestsInput.value = "0";
-        guestCount.textContent = "0";
-
-        renderOptionButtons("#sideOptions", "#rsvpSide", INVITATION.rsvp.sideOptions || []);
-        renderOptionButtons("#attendOptions", "#rsvpAttend", INVITATION.rsvp.attendOptions || []);
-        renderOptionButtons("#mealOptions", "#rsvpMeal", INVITATION.rsvp.mealOptions || []);
+        if (!modal || !openButton || !cancelButton) return;
 
         openButton.addEventListener("click", (event) => {
           event.preventDefault();
           openRsvpModal();
         });
 
-        [cancelButton, backButton].forEach((button) => {
-          button.addEventListener("click", (event) => {
-            event.preventDefault();
-            closeRsvpModal();
-          });
-        });
-
-        const setGuestCount = (nextValue) => {
-          const value = Math.max(0, nextValue);
-          guestsInput.value = String(value);
-          guestCount.textContent = String(value);
-        };
-
-        guestMinus?.addEventListener("click", () => {
-          setGuestCount(Number(guestsInput.value || "0") - 1);
-        });
-
-        guestPlus?.addEventListener("click", () => {
-          setGuestCount(Number(guestsInput.value || "0") + 1);
-        });
-
-        form.addEventListener("submit", (event) => {
+        cancelButton.addEventListener("click", (event) => {
           event.preventDefault();
-          if (!sideInput.value || !attendInput.value || !$("#rsvpName").value.trim()) {
-            alert("필수 항목을 입력해주세요.");
-            return;
-          }
+          closeRsvpModal();
+        });
 
-          const formData = Object.fromEntries(new FormData(form).entries());
-          const saved = JSON.parse(localStorage.getItem("wedding-rsvp-list") || "[]");
-          saved.push({
-            ...formData,
-            createdAt: new Date().toISOString(),
-          });
-          localStorage.setItem("wedding-rsvp-list", JSON.stringify(saved));
-          success.classList.add("open");
-          form.reset();
-          sideInput.value = "";
-          attendInput.value = "";
-          mealInput.value = "";
-          setGuestCount(0);
-          $$(".option-btn").forEach((button) => button.classList.remove("active"));
+        modal.addEventListener("click", (event) => {
+          if (event.target === modal) {
+            closeRsvpModal();
+          }
         });
       }
 
@@ -1495,7 +1426,11 @@
         initAccordion();
         initRsvpModal();
         initShare();
-        syncRsvpModalWithHash();
+        if (window.location.hash === "#rsvpModal") {
+          syncRsvpModalWithHash();
+        } else {
+          openRsvpModal();
+        }
       }
 
       if (document.readyState === "loading") {
